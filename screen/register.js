@@ -1,12 +1,6 @@
 import React, { useState, useLayoutEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Image, Input } from "react-native-elements";
 import { auth } from "../firebase";
 
@@ -38,12 +32,12 @@ const Regiter = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding">
+    <View behavior="padding">
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
         <Image
           source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Signal-Logo.svg/1200px-Signal-Logo.svg.png",
+            uri: "https://www.citypng.com/public/uploads/preview/-416010601995c3rkhawxn.png",
           }}
           style={{ height: 100, width: 100, borderRadius: 15 }}
         />
@@ -73,6 +67,9 @@ const Regiter = ({ navigation }) => {
         </View>
         <View style={styles.buttonGroup}>
           <Button
+            disabled={
+              password.length === 0 || email.length === 0 || name.length === 0
+            }
             onPress={register}
             buttonStyle={styles.buttonSolid}
             title="Register"
@@ -80,7 +77,7 @@ const Regiter = ({ navigation }) => {
         </View>
         <View style={{ height: 100 }} />
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

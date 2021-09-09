@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useState, useEffect } from "react";
 import {
   FlatList,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
@@ -62,10 +61,7 @@ const Chats = ({ navigation, route }) => {
     setMsg("");
   };
   return (
-    <KeyboardAvoidingView
-      style={styles.parentDiv}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <View style={styles.parentDiv}>
       <StatusBar />
       <FlatList
         data={messages}
@@ -91,10 +87,20 @@ const Chats = ({ navigation, route }) => {
               >
                 {item.data.message}
               </Text>
+              <Text
+                style={
+                  item.data.email === auth.currentUser.email
+                    ? styles.self
+                    : styles.notSelf
+                }
+              >
+                Sent by {item.data.user}
+              </Text>
             </View>
           );
         }}
       ></FlatList>
+      <View style={{ height: 10 }} />
       <View style={styles.inputMessage}>
         <TextInput
           onSubmitEditing={sendMessage}
@@ -105,11 +111,12 @@ const Chats = ({ navigation, route }) => {
         />
         <Button
           onPress={sendMessage}
+          disabled={msg.length > 0 ? false : true}
           icon={<Ionicons name="send" size={24} color="white" />}
         />
       </View>
-      <View style={{ height: 50 }} />
-    </KeyboardAvoidingView>
+      <View style={{ height: 100 }} />
+    </View>
   );
 };
 
@@ -151,6 +158,21 @@ const styles = StyleSheet.create({
   notSelfText: {
     color: "#000",
     paddingRight: 16,
+  },
+  self: {
+    color: "#fff",
+    paddingLeft: 16,
+    fontSize: 8,
+    marginTop: 8,
+    marginLeft: "auto",
+    opacity: 0.6,
+  },
+  notSelf: {
+    color: "#000",
+    paddingRight: 16,
+    fontSize: 8,
+    marginTop: 8,
+    opacity: 0.6,
   },
   rightHead: {
     marginRight: 15,

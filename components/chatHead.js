@@ -2,13 +2,13 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Avatar, ListItem } from "react-native-elements";
 
-const ChatHead = ({ title, id, enterChat }) => {
+const ChatHead = ({ title, image, id, enterChat, createdBy }) => {
   return (
     <ListItem onPress={() => enterChat(id, title)} bottomDivider>
       <Avatar
         rounded
         source={{
-          uri: "https://fiskl.com/wp-content/uploads/2019/11/avatar-300x300.jpg",
+          uri: `data:image/jpeg;base64,${image}`,
         }}
       />
       <ListItem.Content>
@@ -18,7 +18,7 @@ const ChatHead = ({ title, id, enterChat }) => {
           ellipsizeMode="tail"
           style={{ fontSize: 14 }}
         >
-          Vice Chairman
+          Created By: {createdBy}
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>

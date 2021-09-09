@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Image, Input } from "react-native-elements";
 import { auth } from "../firebase";
 
@@ -30,14 +24,12 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
+    <View>
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
         <Image
           source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Signal-Logo.svg/1200px-Signal-Logo.svg.png",
+            uri: "https://www.citypng.com/public/uploads/preview/-416010601995c3rkhawxn.png",
           }}
           style={{ height: 100, width: 100, borderRadius: 15 }}
         />
@@ -64,6 +56,7 @@ const Login = ({ navigation }) => {
             onPress={login}
             buttonStyle={styles.buttonSolid}
             title="Login"
+            disabled={password.length === 0 || email.length === 0}
           />
           <Button
             onPress={() => navigation.navigate("Register")}
@@ -74,7 +67,7 @@ const Login = ({ navigation }) => {
         </View>
         <View style={{ height: 100 }} />
       </ScrollView>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

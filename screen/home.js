@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -65,11 +66,16 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      {chats.length === 0 && (
+        <Text style={styles.loading}>Create more chat rooms</Text>
+      )}
       <ScrollView style={styles.container}>
         {chats.map((single) => (
           <ChatHead
             enterChat={enterChat}
             title={single.data.title}
+            createdBy={single.data.creator}
+            image={single.data.image}
             id={single.id}
             key={single.id}
           />
@@ -84,5 +90,10 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     height: "100%",
+  },
+  loading: {
+    fontSize: 16,
+    textAlign: "center",
+    marginVertical: 50,
   },
 });
