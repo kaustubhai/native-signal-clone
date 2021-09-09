@@ -29,6 +29,7 @@ const Regiter = ({ navigation }) => {
           displayName: name,
         });
         alert("Registration Successfull");
+        navigation.replace("Home");
       })
       .catch((error) => {
         alert(error.message);

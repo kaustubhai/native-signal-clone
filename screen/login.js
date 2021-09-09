@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   KeyboardAvoidingView,
+  Platform,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import { Button, Image, Input } from "react-native-elements";
@@ -20,10 +20,19 @@ const Login = ({ navigation }) => {
     });
   }, []);
 
-  const login = () => {};
+  const login = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.replace("Home");
+      })
+      .catch((error) => alert(error.message));
+  };
 
   return (
-    <KeyboardAvoidingView behavior="padding">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
         <Image
@@ -36,10 +45,10 @@ const Login = ({ navigation }) => {
           <Input
             placeholder="Enter Email"
             style={styles.inputField}
-            autoFocus
             value={email}
             onChangeText={(text) => setEmail(text)}
-            keyboardType="email-address"
+            keyboardType="default"
+            autoCapitalize="none"
           />
           <Input
             placeholder="Enter Password"
@@ -47,6 +56,7 @@ const Login = ({ navigation }) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry
+            onSubmitEditing={login}
           />
         </View>
         <View style={styles.buttonGroup}>
